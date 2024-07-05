@@ -25,7 +25,7 @@
     ],
     "require": {
         "php" : ">=7.0",
-        "nfephp-org/sped-common" : "dev-php72",
+        "nfephp-org/sped-common" : "dev-php72v2",
         "justinrainbow/json-schema": "^5.2",
         "ext-zlib": "*",
         "ext-dom": "*",
