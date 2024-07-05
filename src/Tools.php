@@ -356,6 +356,12 @@ class Tools extends ToolsCommon
                 . "<xObs>$xJust</xObs>"
                 . "</evPrestDesacordo>";
         }
+        if ($tpEvento == 610111) {
+            $tagAdic = "<evCancPrestDesacordo>"
+                . "<descEvento>Cancelamento Prestacao do Servico em Desacordo</descEvento>"
+                . "<nProtEvPrestDes>$xJust</nProtEvPrestDes>"
+                . "</evCancPrestDesacordo>";
+        }
         return $this->sefazEvento(
             $ufEvento,
             $chNFe,
@@ -372,7 +378,6 @@ class Tools extends ToolsCommon
      */
     public function sefazEPEC(&$xml)
     {
-        $tagAdic = '';
         $tpEvento = 110140;
         $nSeqEvento = 1;
         if ($this->contingency->type !== 'EPEC') {
@@ -431,7 +436,6 @@ class Tools extends ToolsCommon
             . "<vICMS>$vICMS</vICMS>"
             . "<vST>$vST</vST>"
             . "</dest>";
-
         return $this->sefazEvento(
             'AN',
             $chNFe,

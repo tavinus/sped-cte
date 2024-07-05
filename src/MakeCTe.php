@@ -1884,9 +1884,7 @@ class MakeCTe
             true,
             $identificador . 'Sigla da UF'
         );
-        if (in_array($std->UF, ['MT'])) {
-            $this->cteHomologacao = 'CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL';
-        }
+
         $this->dom->addChild(
             $this->enderEmit,
             'fone',
@@ -2733,7 +2731,9 @@ class MakeCTe
             'pICMSInter',
             'vFCPUFFim',
             'vICMSUFFim',
-            'vICMSUFIni'
+            'vICMSUFIni',
+            'vICMSDeson',
+            'cBenef'
         ];
         $std = $this->equilizeParameters($std, $possible);
         $identificador = 'N01 <ICMSxx> - ';
@@ -2806,6 +2806,22 @@ class MakeCTe
                     true,
                     "$identificador  Valor do ICMS"
                 );
+                if ($std->vICMSDeson > 0 && $std->cBenef) {
+                    $this->dom->addChild(
+                        $icms,
+                        'vICMSDeson',
+                        $this->conditionalNumberFormatting($std->vICMSDeson),
+                        true,
+                        "$identificador  Valor do ICMS Desonerado"
+                    );
+                    $this->dom->addChild(
+                        $icms,
+                        'cBenef',
+                        $std->cBenef,
+                        true,
+                        "$identificador  Código do enefício fiscal"
+                    );
+                }
                 break;
             case '40':
                 $icms = $this->dom->createElement("ICMS45");
@@ -2816,6 +2832,22 @@ class MakeCTe
                     true,
                     "$identificador  Tributação do ICMS = 40"
                 );
+                if ($std->vICMSDeson > 0 && $std->cBenef) {
+                    $this->dom->addChild(
+                        $icms,
+                        'vICMSDeson',
+                        $this->conditionalNumberFormatting($std->vICMSDeson),
+                        true,
+                        "$identificador  Valor do ICMS Desonerado"
+                    );
+                    $this->dom->addChild(
+                        $icms,
+                        'cBenef',
+                        $std->cBenef,
+                        true,
+                        "$identificador  Código do enefício fiscal"
+                    );
+                }
                 break;
             case '41':
                 $icms = $this->dom->createElement("ICMS45");
@@ -2826,6 +2858,22 @@ class MakeCTe
                     true,
                     "$identificador  Tributação do ICMS = 41"
                 );
+                if ($std->vICMSDeson > 0 && $std->cBenef) {
+                    $this->dom->addChild(
+                        $icms,
+                        'vICMSDeson',
+                        $this->conditionalNumberFormatting($std->vICMSDeson),
+                        true,
+                        "$identificador  Valor do ICMS Desonerado"
+                    );
+                    $this->dom->addChild(
+                        $icms,
+                        'cBenef',
+                        $std->cBenef,
+                        true,
+                        "$identificador  Código do enefício fiscal"
+                    );
+                }
                 break;
             case '51':
                 $icms = $this->dom->createElement("ICMS45");
@@ -2836,6 +2884,22 @@ class MakeCTe
                     true,
                     "$identificador  Tributação do ICMS = 51"
                 );
+                if ($std->vICMSDeson > 0 && $std->cBenef) {
+                    $this->dom->addChild(
+                        $icms,
+                        'vICMSDeson',
+                        $this->conditionalNumberFormatting($std->vICMSDeson),
+                        true,
+                        "$identificador  Valor do ICMS Desonerado"
+                    );
+                    $this->dom->addChild(
+                        $icms,
+                        'cBenef',
+                        $std->cBenef,
+                        true,
+                        "$identificador  Código do enefício fiscal"
+                    );
+                }
                 break;
             case '60':
                 $icms = $this->dom->createElement("ICMS60");
@@ -2874,6 +2938,22 @@ class MakeCTe
                         $this->conditionalNumberFormatting($std->vCred),
                         false,
                         "$identificador  Valor do Crédito"
+                    );
+                }
+                if ($std->vICMSDeson > 0 && $std->cBenef) {
+                    $this->dom->addChild(
+                        $icms,
+                        'vICMSDeson',
+                        $this->conditionalNumberFormatting($std->vICMSDeson),
+                        true,
+                        "$identificador  Valor do ICMS Desonerado"
+                    );
+                    $this->dom->addChild(
+                        $icms,
+                        'cBenef',
+                        $std->cBenef,
+                        true,
+                        "$identificador  Código do enefício fiscal"
                     );
                 }
                 break;
@@ -2918,6 +2998,24 @@ class MakeCTe
                         true,
                         "$identificador Valor ICMS Outra UF"
                     );
+                    if ($std->vICMSDeson > 0) {
+                        $this->dom->addChild(
+                            $icms,
+                            'vICMSDeson',
+                            $this->conditionalNumberFormatting($std->vICMSDeson),
+                            true,
+                            "$identificador  Valor do ICMS Desonerado"
+                        );
+                    }
+                    if ($std->cBenef) {
+                        $this->dom->addChild(
+                            $icms,
+                            'cBenef',
+                            $std->cBenef,
+                            true,
+                            "$identificador  Código do enefício fiscal"
+                        );
+                    }
                 } else {
                     $icms = $this->dom->createElement("ICMS90");
                     $this->dom->addChild(
@@ -2966,6 +3064,24 @@ class MakeCTe
                             "$identificador  Valor do Crédido"
                         );
                     }
+                    if ($std->vICMSDeson > 0) {
+                        $this->dom->addChild(
+                            $icms,
+                            'vICMSDeson',
+                            $this->conditionalNumberFormatting($std->vICMSDeson),
+                            true,
+                            "$identificador  Valor do ICMS Desonerado"
+                        );
+                    }
+                    if ($std->cBenef) {
+                        $this->dom->addChild(
+                            $icms,
+                            'cBenef',
+                            $std->cBenef,
+                            true,
+                            "$identificador  Código do enefício fiscal"
+                        );
+                    }
                 }
                 break;
             case 'SN':
@@ -3007,7 +3123,7 @@ class MakeCTe
             $this->dom->addChild(
                 $this->imp,
                 'infAdFisco',
-                $std->infAdFisco,
+                Strings::replaceUnacceptableCharacters($std->infAdFisco),
                 false,
                 "$identificador Informações adicionais de interesse do Fisco"
             );
